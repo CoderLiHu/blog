@@ -6,7 +6,6 @@ from django.urls import reverse
 import markdown
 
 
-
 # Create your models here.
 class Category(models.Model):
     name = models.CharField(max_length=100)
