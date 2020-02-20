@@ -2,8 +2,6 @@ from django.shortcuts import render, get_object_or_404
 from .models import Post
 import markdown
 import re
-from django.utils.text import slugify
-from markdown.extensions.toc import TocExtension
 
 # Create your views here.
 
@@ -23,7 +21,7 @@ def detail(request, pk):
     md = markdown.Markdown(extensions=[
                                       'markdown.extensions.extra',
                                       'markdown.extensions.codehilite',
-                                      TocExtension(slugify=slugify),
+                                      'markdown.extensions.toc',
                                   ])
     post.text = md.convert(post.text)
 
