@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from .models import Post
 
 # Create your views here.
@@ -12,3 +12,8 @@ def index(request):
                       'title': '李虎的博客首页',
                       'post_list': post_list
                   })
+
+
+def detail(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    return render(request, 'blog/detail.html', {"post": post})
