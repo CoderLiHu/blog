@@ -47,6 +47,7 @@ class Post(models.Model):
     class Meta:
         verbose_name = "文章"
         verbose_name_plural = verbose_name
+        ordering = ['-created_time', 'title']
 
     # 改写save,每次保存时更新modified_time
     def save(self, *args, **kwargs):

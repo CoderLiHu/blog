@@ -22,7 +22,8 @@ def comment(request, post_pk):
                              messages.SUCCESS,
                              "评论发表成功!",
                              extra_tags='success')
-        return redirect(post)
+        url = post.get_absolute_url() + '#comment-area'
+        return redirect(url)
 
     context = {'form': form, 'post': post}
     messages.add_message(request,
