@@ -21,12 +21,29 @@ def index(request):
 def detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
     md = markdown.Markdown(extensions=[
-        'markdown.extensions.extra',
-        'markdown.extensions.codehilite',
-        TocExtension(slugify=slugify),
+        'extra', # 包含下面7个子项
+            # 'abbr', # Abbreviations
+            # 'attr_list', # Attribute Lists
+            # 'def_list', # Definition Lists
+            # 'fenced_code', # Fenced Code Blocks
+            # 'footnotes', # Footnotes
+            # 'md_in_html', # Markdown in HTML
+            # 'tables', # Tables
+        'admonition', # Admonition
+        'codehilite', # CodeHilite
+        # 'legacy_attrs', # Legacy Attributes
+        # 'legacy_em', # Legacy EM
+        'meta', # Meta-Data
+        'nl2br', # New-Line-to-Break Extension
+        'sane_lists', # Sane Lists
+        # 'smarty', # SmartyPants
+        'toc', # Table of Contents
+        # 
+        # from markdown.extensions.wikilinks import WikiLinkExtension  # WikiLinks
+        # WikiLinkExtension(base_url='/wiki/', end_url='.html')
+        # TocExtension(slugify=slugify),
     ])
     post.text = md.convert(post.text)
-
     m = re.search(r'<div class="toc">\s*<ul>(.*)</ul>\s*</div>', md.toc, re.S)
     post.toc = m.group(1) if m is not None else ''
     return render(request, 'blog/detail.html', {"post": post})
