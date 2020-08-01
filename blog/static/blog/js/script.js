@@ -110,43 +110,62 @@ if ( typeof define === 'function' && define.amd ) {
 
 })( window );
 
-(function() {
-    var triggerBttn = document.getElementById( 'trigger-overlay' ),
-        overlay = document.querySelector( 'div.overlay' ),
-        closeBttn = overlay.querySelector( 'button.overlay-close' );
-        transEndEventNames = {
-            'WebkitTransition': 'webkitTransitionEnd',
-            'MozTransition': 'transitionend',
-            'OTransition': 'oTransitionEnd',
-            'msTransition': 'MSTransitionEnd',
-            'transition': 'transitionend'
-        },
-        transEndEventName = transEndEventNames[ Modernizr.prefixed( 'transition' ) ],
-        support = { transitions : Modernizr.csstransitions };
+// (function() {
+//     var triggerBttn = document.getElementById( 'trigger-overlay' ),
+//         overlay = document.querySelector( 'div.overlay' ),
+//         closeBttn = overlay.querySelector( 'button.overlay-close' );
+//         transEndEventNames = {
+//             'WebkitTransition': 'webkitTransitionEnd',
+//             'MozTransition': 'transitionend',
+//             'OTransition': 'oTransitionEnd',
+//             'msTransition': 'MSTransitionEnd',
+//             'transition': 'transitionend'
+//         },
+//         transEndEventName = transEndEventNames[ Modernizr.prefixed( 'transition' ) ],
+//         support = { transitions : Modernizr.csstransitions };
 
-    function toggleOverlay() {
-        if( classie.has( overlay, 'open' ) ) {
-            classie.remove( overlay, 'open' );
-            classie.add( overlay, 'close' );
-            var onEndTransitionFn = function( ev ) {
-                if( support.transitions ) {
-                    if( ev.propertyName !== 'visibility' ) return;
-                    this.removeEventListener( transEndEventName, onEndTransitionFn );
-                }
-                classie.remove( overlay, 'close' );
-            };
-            if( support.transitions ) {
-                overlay.addEventListener( transEndEventName, onEndTransitionFn );
-            }
-            else {
-                onEndTransitionFn();
-            }
-        }
-        else if( !classie.has( overlay, 'close' ) ) {
-            classie.add( overlay, 'open' );
-        }
-    }
+//     function toggleOverlay() {
+//         if( classie.has( overlay, 'open' ) ) {
+//             classie.remove( overlay, 'open' );
+//             classie.add( overlay, 'close' );
+//             var onEndTransitionFn = function( ev ) {
+//                 if( support.transitions ) {
+//                     if( ev.propertyName !== 'visibility' ) return;
+//                     this.removeEventListener( transEndEventName, onEndTransitionFn );
+//                 }
+//                 classie.remove( overlay, 'close' );
+//             };
+//             if( support.transitions ) {
+//                 overlay.addEventListener( transEndEventName, onEndTransitionFn );
+//             }
+//             else {
+//                 onEndTransitionFn();
+//             }
+//         }
+//         else if( !classie.has( overlay, 'close' ) ) {
+//             classie.add( overlay, 'open' );
+//         }
+//     }
 
-    triggerBttn.addEventListener( 'click', toggleOverlay );
-    closeBttn.addEventListener( 'click', toggleOverlay );
-})();
+//     triggerBttn.addEventListener( 'click', toggleOverlay );
+//     closeBttn.addEventListener( 'click', toggleOverlay );
+// })();
+
+
+// comment-quote
+function commentQuote(id,name){
+  var eleSelector = '#comment-quote-' + id
+  var quoteValue = $(eleSelector).html()
+  // var quoteValue = $(eleSelector).contents().filter(function(item){
+  //   return this.tagName !== 'BLOCKQUOTE';
+  // }).map(function(item){
+  //   return item.innerText
+  // })
+  // console.log(quoteValue)
+  var textAreaValue = '<blockquote>' + '<pre>引用' + name +  '的发言</pre>' + quoteValue + '</blockquote>'
+  var textAreaNode = $('#id_text')
+  textAreaNode.val(textAreaValue)
+  setTimeout(function(){textAreaNode.focus()},500) 
+  
+ 
+}

@@ -34,7 +34,7 @@ def detail(request, pk):
         # 'legacy_attrs', # Legacy Attributes
         # 'legacy_em', # Legacy EM
         'meta', # Meta-Data
-        'nl2br', # New-Line-to-Break Extension
+        # 'nl2br', # New-Line-to-Break Extension
         'sane_lists', # Sane Lists
         # 'smarty', # SmartyPants
         'toc', # Table of Contents

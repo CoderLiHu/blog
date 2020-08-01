@@ -1,26 +1,31 @@
 <form action="{% url 'comments:comment' post.pk %}" method="post" class="comment-form">
     {% csrf_token %}
     <div class="row">
-        <div class="col-md-4">
-            <label for="{{ form.name.id_for_label }}">{{ form.name.label }}: </label>
-            {{ form.name }}
-            {{ form.name.errors }}
-        </div>
-        <div class="col-md-4">
-            <label for="{{ form.email.id_for_label }}">{{ form.email.label }}</label>
-            {{ form.email  }}
-            {{ form.email.errors }}
-        </div>
-        <div class="col-md-4">
-            <label for="{{ form.url.id_for_label }}">{{ form.url.label }}</label>
-            {{ form.url }}
-            {{ form.url.errors }}
-        </div>
-        <div class="col-md-4">
-            <label for="{{ form.text.id_for_label }}">{{ form.text.label }}</label>
+        <div class="col-md-12">
+         <label for="{{ form.text.id_for_label }}">{{ form.text.label }}</label>
             {{ form.text }}
             {{ form.text.errors }}
-            <button type="submit" class="comment-btn">发表</button>
+        </div>
+        <div class="col-md-12">
+            <label for="{{ form.name.id_for_label }}">{{ form.name.label }}：</label>
+            <div class="tip">{{ form.name }}<span>&nbsp;«- 必填</span></div>
+            {{ form.name.errors }}
+        </div>
+        <div class="col-md-12">
+            <label for="{{ form.email.id_for_label }}">{{ form.email.label }}：</label>
+            <div class="tip">{{ form.email }}<span>&nbsp;«- 必填</span></div>
+            {{ form.email.errors }}
+        </div>
+        <div class="col-md-12">
+            <label for="{{ form.url.id_for_label }}">{{ form.url.label }}：</label>
+            <div class="tip">{{ form.url }}<span>«- 我信任你，不会填写广告连接</span></div>
+            {{ form.url.errors }}
+        </div>
+        <div class="col-md-12">
+            <div class="tip">
+                <button type="submit" class="comment-btn">发&nbsp;&nbsp;表</button>
+                <span>&nbsp;«- 点击发表</span>
+            </div>
         </div>
     </div>
 </form>

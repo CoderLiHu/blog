@@ -4,10 +4,10 @@ from django.utils import timezone
 
 # Create your models here.
 class Comment(models.Model):
-    name = models.CharField('名字', max_length=50)
-    email = models.EmailField('邮箱')
-    url = models.URLField('网址', blank=True)
-    text = models.TextField('内容')
+    name = models.CharField('您的大名', max_length=50)
+    email = models.EmailField('电子邮箱')
+    url = models.URLField('个人网址', blank=True)
+    text = models.TextField('您的留言')
     created_time = models.DateTimeField('创建时间', default=timezone.now)
     post = models.ForeignKey('blog.Post',
                              verbose_name='文章',

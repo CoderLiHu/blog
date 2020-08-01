@@ -1,12 +1,27 @@
-<h3>评论列表，共 <span>{{ comment_count }}</span> 条评论</h3>
+<h2>留言 <span>（{{ comment_count }}</span> 条）</h2>
 <ul class="comment-list list-unstyled">
   {% for comment in comment_list %}
-    <li class="comment-item">
-      <span class="nickname">{{ comment.name }}</span>
-      <time class="submit-date" datetime="{{ comment.created_time }}">{{ comment.created_time }}</time>
-      <div class="text">
-        {{ comment.text|linebreaks }}
+    <li id="comment-{{ comment.id }}" class="comment-item">
+      <p>
+        <span class="nickname">
+          {% if comment.url %}<a href="{{ comment.url }}">{% endif %}
+          {{ comment.name }}
+          {% if comment.url %}</a>{% endif %}  
+        </span>  
+        说：
+      </p>
+      <div id="comment-quote-{{ comment.id }}" class="text">
+        {% autoescape off %}
+        {{ comment.text | linebreaks }}
+        {% endautoescape%}
       </div>
+      <p class="comment-item-footer">
+        <time class="submit-date" datetime="{{ comment.created_time }}">{{ comment.created_time }}</time>
+        <span clsss="footer-seperater"> | </span>
+        <span><a href="#comment-{{ comment.id }}"> # </a></span>
+        <span clsss="footer-seperater"> | </span>
+        <span><a href="#comment-form" title="引用{{ comment.name }}这条留言" onclick="commentQuote('{{ comment.id}}','{{ comment.name }}')"> 引用 </a></span>
+      </P>
     </li>
   {% empty %}
     暂无评论
