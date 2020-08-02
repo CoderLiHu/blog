@@ -5,16 +5,18 @@
 <main class="col-md-12">
     <div class="category-cotainer">
         <span>分类：<a href="{% url 'blog:category' post.category.pk%}">{{ post.category.name }}</a></span>
-        </div>
+    </div>
     <article class="post post-{{ post.pk }}">
         <header class="entry-header">
         <h1 class="entry-title">{{ post.title }}</h1>
         <div class="entry-meta">
             {% comment %} <span class="post-category"><a href="{% url 'blog:category' post.category.pk%}">{{ post.category.name }}</a></span> {% endcomment %}
-            <span class="post-date"><a href="#"><time class="entry-date"
-                                                    datetime="{{ post.created_time }}">{{ post.created_time }}</time></a></span>
-            <span class="post-author"><a href="#">{{ post.author }}</a></span>
-            <span class="comments-link"><a href="{{post.get_absolute_url}}#comment-area">{{ post.comment_set.count }} 评论</a></span>
+            <p class="post-author"><a href="/">作者：李虎</a></p>
+            {% comment %} {{ post.author }} {% endcomment %}
+            <p class="post-date">
+                <a href="{% url 'blog:archive' post.created_time.year post.created_time.month %}"><time class="entry-date" datetime="{{ post.created_time.date }}">日期：{{ post.created_time.date }}</time></a>
+            </p>
+            {% comment %} <span class="comments-link"><a href="{{post.get_absolute_url}}#comment-area">{{ post.comment_set.count }} 评论</a></span> {% endcomment %}
             {% comment %} <span class="views-count"><a href="{{post.get_absolute_url}}">588 阅读</a></span> {% endcomment %}
         </div>
         </header>
@@ -23,7 +25,16 @@
         </div>
         <br><br><br>
         <p>(完)</P>
+        
     </article>
+    <div class="copyright-announcement">
+            <h3>文档信息</h3>
+            <ul>
+                <li><p>版权声明：转载请注明出处</p></li>
+                <li><p>发表日期：<a href="{% url 'blog:archive' post.created_time.year post.created_time.month %}"><time class="entry-date" datetime="{{ post.created_time.date }}">{{ post.created_time.date }}</time></a></P></li>
+                <li><p>最后修改日期：<a href="{% url 'blog:archive' post.modified_time.year post.modified_time.month %}"><time class="entry-date" datetime="{{ post.modified_time.date }}">{{ post.modified_time.date }}</time></a></p></li>
+            </ul>
+        </div>
     <section class="comment-area" id="comment-area">
         <hr>
         {% comment %} <h3>留言板</h3> {% endcomment %}
