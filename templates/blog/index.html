@@ -2,34 +2,54 @@
 {% load blog_extras %}
 
 {% block main %}
-    <main class="col-md-8">
-        {% for post in post_list %}
-            <article class="post post-{{ post.pk }}">
-                <header class="entry-header">
-                    <h1 class="entry-title">
-                        <a href="{{post.get_absolute_url}}">{{ post.title }}</a>
-                    </h1>
-                    <div class="entry-meta">
-                        <span class="post-category"><a href="{% url 'blog:category' post.category.pk%}">{{ post.category.name }}</a></span>
-                        <span class="post-date"><a href="#"><time class="entry-date"
-                                                                datetime="{{ post.created_time }}">{{ post.created_time }}</time></a></span>
-                        <span class="post-author"><a href="#">{{ post.author }}</a></span>
-                        <span class="comments-link"><a href="{{post.get_absolute_url}}#comment-area">{{ post.comment_set.count }} 评论</a></span>
-                        <span class="views-count"><a href="{{post.get_absolute_url}}">588 阅读</a></span>
-                    </div>
-                </header>
-                <div class="entry-content clearfix markdown-here-wrapper ">
-                    <p>{{ post.excerpt }}</p>
-                    <div class="read-more cl-effect-14">
-                        <a href="{{post.get_absolute_url}}" class="more-link">继续阅读 <span class="meta-nav">→</span></a>
-                    </div>
+    <main class="col-md-9 col-lg-9">
+        <article class="post post-{{ post.pk }}">
+            <header class="entry-header">
+                <h1 class="entry-title">
+                    <a href="{{post.get_absolute_url}}">{{ post.title }}</a>
+                </h1>
+                
+            </header>
+            <div class="entry-content clearfix markdown-here-wrapper ">
+                <p class="excerpt-category">分类：<a href="{% url 'blog:category' post.category.pk%}">{{ post.category.name }}</a><p>
+                <p>{{ post.excerpt }}</p>
+                <div class="read-more cl-effect-14">
+                    <a href="{{post.get_absolute_url}}" class="more-link">继续阅读全文  >></a>
                 </div>
-            </article>
-        {% empty %}
+            </div>
+            <div class="entry-meta-i">
+                    <span class="post-date">
+                        <time class="entry-date" datetime="{{ post.created_time }}">{{ post.created_time }}</time>
+                    </span>
+                    {% comment %} <span class="post-author"><a href="#">{{ post.author }}</a></span> {% endcomment %}
+                    <span> | </span>
+                    <span class="comments-link"><a href="{{post.get_absolute_url}}#comment-area">留言 ({{ post.comment_set.count }} )</a></span>
+                    {% comment %} <span class="views-count"><a href="{{post.get_absolute_url}}">588 阅读</a></span> {% endcomment %}
+                </div>
+        </article>
+
+        <div class="post-list post">
+        <h3>最新文章</h3>
+        <ul>
+            {% for post in post_list %}
+                <li>
+                    <span class="post-date">
+                        <time class="entry-date" datetime="{{ post.created_time.date }}">{{ post.created_time.date }}</time>
+                    </span>
+                    <span> » </span>
+                    <span>
+                        <a class="category-name" href="{% url 'blog:category' post.category.pk%}">{{ post.category.name }}</a>
+                    </span>
+                    <span> »» </span>
+                    <span>
+                        <a href="{{post.get_absolute_url}}">{{ post.title }}</a>
+                    </span>
+                </li>
+            {% empty %}
             <div class="no-post">暂时还没有发布的文章！</div>
-        {% endfor %}
-
-
+            {% endfor %}
+        </ul>
+        </div>
         {% comment %} <div class="pagination">
             <ul>
                 <li><a href="">1</a></li>
@@ -48,13 +68,12 @@
 
 
 {% block aside %}
-    <aside class="col-md-4">
-        
-        {% show_recent_posts %}
+    <aside class="col-md-3 col-lg-3">
+        {% show_categories %}
         
         {% show_archives %}
 
-        {% show_categories %}
+        {% comment %} {% show_recent_posts %} {% endcomment %}
 
         {% show_tags %}
         {% comment %} <div class="rss">

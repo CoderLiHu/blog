@@ -11,10 +11,10 @@
         <h1 class="entry-title">{{ post.title }}</h1>
         <div class="entry-meta">
             {% comment %} <span class="post-category"><a href="{% url 'blog:category' post.category.pk%}">{{ post.category.name }}</a></span> {% endcomment %}
-            <p class="post-author"><a href="/">作者：李虎</a></p>
+            <p class="post-author">作者：<a href="/">李虎</a></p>
             {% comment %} {{ post.author }} {% endcomment %}
             <p class="post-date">
-                <a href="{% url 'blog:archive' post.created_time.year post.created_time.month %}"><time class="entry-date" datetime="{{ post.created_time.date }}">日期：{{ post.created_time.date }}</time></a>
+                日期：<a href="{% url 'blog:archive' post.created_time.year post.created_time.month %}"><time class="entry-date" datetime="{{ post.created_time.date }}">{{ post.created_time.date }}</time></a>
             </p>
             {% comment %} <span class="comments-link"><a href="{{post.get_absolute_url}}#comment-area">{{ post.comment_set.count }} 评论</a></span> {% endcomment %}
             {% comment %} <span class="views-count"><a href="{{post.get_absolute_url}}">588 阅读</a></span> {% endcomment %}

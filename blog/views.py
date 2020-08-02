@@ -14,7 +14,8 @@ def index(request):
                   'blog/index.html',
                   context={
                       'title': '李虎的博客首页',
-                      'post_list': post_list
+                      'post': post_list.first,
+                      'post_list': post_list,
                   })
 
 
@@ -46,23 +47,42 @@ def detail(request, pk):
     post.text = md.convert(post.text)
     m = re.search(r'<div class="toc">\s*<ul>(.*)</ul>\s*</div>', md.toc, re.S)
     post.toc = m.group(1) if m is not None else ''
-    return render(request, 'blog/detail.html', {"post": post})
+    return render(request, 'blog/detail.html', {
+        "post": post,
+        'title': post.category.name,
+        'title_path': '/categories/{0}/'.format(post.category.pk),
+        })
 
 
 def archive(request, year, month):
     post_list = Post.objects.filter(
         created_time__year=year,
         created_time__month=month).order_by('-created_time')
-    return render(request, 'blog/index.html', context={'post_list': post_list})
+    return render(request, 'blog/index.html', context={
+        'post_list': post_list,
+        'post': post_list.first,
+        'title': str(year) + "年" + str(month) + "月",
+        'title_path': request.path,
+        })
 
 
 def category(request, pk):
     cate = get_object_or_404(Category, pk=pk)
     post_list = Post.objects.filter(category=cate).order_by('-created_time')
-    return render(request, 'blog/index.html', context={'post_list': post_list})
+    return render(request, 'blog/index.html', context={
+        'post_list': post_list, 
+        'post': post_list.first,
+        'title': cate.name,
+        'title_path': request.path,
+        })
 
 
 def tag(request, pk):
     t = get_object_or_404(Tag, pk=pk)
     post_list = Post.objects.filter(tag=t).order_by('-created_time')
-    return render(request, 'blog/index.html', context={'post_list': post_list})
+    return render(request, 'blog/index.html', context={
+        'post_list': post_list, 
+        'post': post_list.first,
+        'title': t.name,
+        'title_path': request.path,
+        })

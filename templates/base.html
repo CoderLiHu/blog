@@ -11,9 +11,8 @@
 
     <!-- css -->
     <link rel="stylesheet" href="{% static 'blog/css/bootstrap.min.css' %}">
-    <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    {% comment %} <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"> {% endcomment %}
     <link rel="stylesheet" href="{% static 'blog/css/pace.css' %}">
-    {% comment %} <link rel="stylesheet" href="{% static 'blog/css/custom.css' %}"> {% endcomment %}
     <link rel="stylesheet" href="{% static 'blog/css/custom_hu.css' %}"> 
     {% comment %} <link rel="stylesheet" href="{% static 'blog/css/test.css' %}">  {% endcomment %}
     <link href="https://cdn.bootcss.com/highlight.js/9.15.8/styles/github.min.css" rel="stylesheet">
@@ -64,7 +63,16 @@
         {% comment %} <div class="row">
             <div class="col-md-4 col-sm-5 col-xs-8"> {% endcomment %}
                 <div class="logo">
-                    <h3><a href="{% url 'blog:index' %}"><b>NLPer</b>    李虎的博客</a></h1>
+                    <h3>
+                        <a href="{% url 'blog:index' %}"><b>NLPer</b>    李虎的博客</a>
+                        {% if title_path %}
+                            <span> » </span>
+                            <span><a class="breadcrumb-navigation"  href="{% url 'blog:index' %}">首页</a></span>
+                            <span> » </span>
+                            <span><a class="breadcrumb-navigation" href="{{ title_path }}">{{ title }}</a></span>
+                        {% endif %}
+                    </h3>
+                    
                 </div>
             {% comment %} </div><!-- col-md-4 --> {% endcomment %}
             {% comment %} <div class="col-md-8 col-sm-7 col-xs-4">
