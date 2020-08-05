@@ -3,7 +3,7 @@
 
 {% block main %}
 <main class="col-md-12">
-    <div class="category-cotainer">
+    <div class="category-container">
         <span>分类：<a href="{% url 'blog:category' post.category.pk%}">{{ post.category.name }}</a></span>
     </div>
     <article class="post post-{{ post.pk }}">

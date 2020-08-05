@@ -162,7 +162,7 @@ function commentQuote(id,name){
   //   return item.innerText
   // })
   // console.log(quoteValue)
-  var textAreaValue = '<blockquote>' + '<pre>引用' + name +  '的发言</pre>' + quoteValue + '</blockquote>'
+  var textAreaValue = '<blockquote>\n' + '<pre>引用' + name +  '的发言:</pre>\n' + '<p>' + $.trim(quoteValue) + '</p>\n' + '</blockquote>\n'
   var textAreaNode = $('#id_text')
   textAreaNode.val(textAreaValue)
   setTimeout(function(){textAreaNode.focus()},500) 
