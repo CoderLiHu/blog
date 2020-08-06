@@ -1218,6 +1218,10 @@ img {
     color: #555;
     text-decoration: underline;
 }
+.error-tip{
+    color:red;
+    font-size: 1.2rem;
+}
 
 /**
  * 13.0 - Pagination

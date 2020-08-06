@@ -1,29 +1,46 @@
-<form action="{% url 'comments:comment' post.pk %}" method="post" class="comment-form">
+<form name="commentForm" action="{% url 'comments:comment' post.pk %}" method="post" class="comment-form" onsubmit="return validateCommentForm()">
     {% csrf_token %}
     <div class="row">
         <div class="col-md-12">
-         <label for="{{ form.text.id_for_label }}">{{ form.text.label }}</label>
-            {{ form.text }}
+         <label for="{{ form.text.id_for_label }}">{{ form.text.label }}：</label>
+         <span class="error-tip" id="comment-text-error"></span>
+            <textarea name="text" cols="40" rows="10" id="id_text"></textarea>
+            {% comment %} {{ form.text }} {% endcomment %}
             {{ form.text.errors }}
         </div>
         <div class="col-md-12">
             <label for="{{ form.name.id_for_label }}">{{ form.name.label }}：</label>
-            <div class="tip">{{ form.name }}<span>&nbsp;«- 必填</span></div>
+            <span class="error-tip" id="comment-name-error"></span>
+            <div class="tip">
+                <input type="text" name="name" id="id_name">
+                {% comment %} {{ form.name }} {% endcomment %}
+                <span>&nbsp;«- 必填</span>
+            </div>
             {{ form.name.errors }}
         </div>
         <div class="col-md-12">
             <label for="{{ form.email.id_for_label }}">{{ form.email.label }}：</label>
-            <div class="tip">{{ form.email }}<span>&nbsp;«- 必填</span></div>
+            <span class="error-tip" id="comment-email-error"></span>
+            <div class="tip">
+                <input name="email" id="id_email">
+                {% comment %} {{ form.email }} {% endcomment %}
+                <span>&nbsp;«- 必填</span>
+            </div>
             {{ form.email.errors }}
         </div>
         <div class="col-md-12">
             <label for="{{ form.url.id_for_label }}">{{ form.url.label }}：</label>
-            <div class="tip">{{ form.url }}<span>«- 我信任你，不会填写广告连接</span></div>
+            <span class="error-tip" id="comment-url-error"></span>
+            <div class="tip">
+                <input name="url" id="id_url">
+                {% comment %} {{ form.url }} {% endcomment %}
+                <span>«- 我信任你，不会填写广告连接</span>
+            </div>
             {{ form.url.errors }}
         </div>
         <div class="col-md-12">
             <div class="tip">
-                <button type="submit" class="comment-btn">发&nbsp;&nbsp;表</button>
+                <button class="comment-btn" type="submit">发&nbsp;&nbsp;表</button>
                 <span>&nbsp;«- 点击发表</span>
             </div>
         </div>

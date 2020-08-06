@@ -169,3 +169,74 @@ function commentQuote(id,name){
   
  
 }
+
+function validateCommentForm() {
+  var form = document.forms["commentForm"]
+  var text = form["text"];
+  var name = form["name"];
+  var email = form["email"];
+  var url = form["url"];
+  var text_error = $('#comment-text-error')
+  var name_error = $('#comment-name-error')
+  var email_error = $('#comment-email-error')
+  var url_error = $('#comment-url-error')
+  var valididy = true
+  var reg_email=/^[a-z0-9](\w|\.|-)*@([a-z0-9]+-?[a-z0-9]+\.){1,3}[a-z]{2,4}$/i;
+  var reg_url=/^((https|http|ftp|rtsp|mms){0,1}(:\/\/){0,1})www\.(([A-Za-z0-9-~]+)\.)+([A-Za-z0-9-~\/])+$/i;
+  // 留言校验
+  var text_value = $.trim(filterXSS(text.value));
+  
+  if(text.value){
+    text_error.html("")
+    if(text.value.length > 1000){ 
+      text_error.html("留言长度过长，支持1000字符以内")
+      valididy = false;
+    }
+  }else{
+    text_error.html("留言内容不能为空")
+    valididy = false;
+  };
+  // 名字校验
+  if(name.value){
+    name_error.html("")
+    if(name.value.length > 50){ 
+      name_error.html("名字长度过长,支持50字符以内")
+      valididy = false;
+    };
+  }else{ 
+    name_error.html("名字不能为空")
+    valididy = false;
+  };
+  // 邮箱校验
+  if(email.value){
+    email_error.html("")
+    if(email.value.length > 100){ 
+      email_error.html("邮箱长度过长,支持100字符以内")
+      valididy =false;
+    }else if(!email.value.match(reg_email)){
+      email_error.html("邮箱格式不正确")
+      valididy = false;
+    }
+  }else{
+    email_error.html("邮箱不能为空")
+    valididy = false;
+  };
+  // 网址校验
+  if(url.value){
+    url_error.html("")
+    if(url.value.length > 200){ 
+      url_error.html("网址长度过长,支持200字符以内")
+      valididy = false;
+    }else if(!url.value.match(reg_url)){
+      url_error.html("网址格式不正确")
+      valididy = false;
+    }
+  }
+  if(valididy){
+    text.value =text_value
+    // form.submit()
+  }else{
+    return false
+  }
+  
+}

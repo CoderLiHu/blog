@@ -14,5 +14,5 @@ def show_comment_form(context, post, form=None):
 @register.inclusion_tag('comments/inclusions/_list.html', takes_context=True)
 def show_comment_list(context, post):
     comment_list = post.comment_set.all().order_by('created_time')
-    comment_count = comment_list.count()
+    comment_count = comment_list.count() 
     return {'comment_list': comment_list, 'comment_count': comment_count}
