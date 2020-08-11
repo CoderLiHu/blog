@@ -154,15 +154,9 @@ if ( typeof define === 'function' && define.amd ) {
 
 // comment-quote
 function commentQuote(id,name){
-  var eleSelector = '#comment-quote-' + id
-  var quoteValue = $(eleSelector).html()
-  // var quoteValue = $(eleSelector).contents().filter(function(item){
-  //   return this.tagName !== 'BLOCKQUOTE';
-  // }).map(function(item){
-  //   return item.innerText
-  // })
-  // console.log(quoteValue)
-  var textAreaValue = '<blockquote>\n' + '<pre>引用' + name +  '的发言:</pre>\n' + '<p>' + $.trim(quoteValue) + '</p>\n' + '</blockquote>\n'
+  var eleSelector = '#comment-quote-' + id 
+  var quoteValue = $(eleSelector).clone().children('blockquote').remove().end().html()
+  var textAreaValue = '<blockquote>\n' + '<pre>引用' + name +  '的发言:</pre>\n' + $.trim(quoteValue) + '\n</blockquote>\n'
   var textAreaNode = $('#id_text')
   textAreaNode.val(textAreaValue)
   setTimeout(function(){textAreaNode.focus()},500) 
