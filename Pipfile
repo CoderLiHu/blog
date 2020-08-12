@@ -12,7 +12,7 @@ flake8 = "*"
 yapf = "*"
 markdown = "*"
 gunicorn = "*"
-lxml = "*"
+lxml = "4.5.1"
 
 [requires]
 python_version = "3.7"

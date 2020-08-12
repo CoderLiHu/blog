@@ -155,8 +155,8 @@ if ( typeof define === 'function' && define.amd ) {
 // comment-quote
 function commentQuote(id,name){
   var eleSelector = '#comment-quote-' + id 
-  var quoteValue = $(eleSelector).clone().children('blockquote').remove().end().html()
-  var textAreaValue = '<blockquote>\n' + '<pre>引用' + name +  '的发言:</pre>\n' + $.trim(quoteValue) + '\n</blockquote>\n'
+  var quoteValue = $(eleSelector).children().clone().children('blockquote').remove().end().html()
+  var textAreaValue = '<blockquote>\n' + '<pre>引用<a href="#comment-' + id +'">'+ name +  '的发言</a>:</pre>\n' + $.trim(quoteValue) + '\n</blockquote>\n'
   var textAreaNode = $('#id_text')
   textAreaNode.val(textAreaValue)
   setTimeout(function(){textAreaNode.focus()},500) 
@@ -174,59 +174,77 @@ function validateCommentForm() {
   var name_error = $('#comment-name-error')
   var email_error = $('#comment-email-error')
   var url_error = $('#comment-url-error')
-  var valididy = true
+  var validity = true
   var reg_email=/^[a-z0-9](\w|\.|-)*@([a-z0-9]+-?[a-z0-9]+\.){1,3}[a-z]{2,4}$/i;
   var reg_url=/^((https|http|ftp|rtsp|mms){0,1}(:\/\/){0,1})www\.(([A-Za-z0-9-~]+)\.)+([A-Za-z0-9-~\/])+$/i;
   // 留言校验
   var text_value = $.trim(filterXSS(text.value));
   
+  
+  
+
   if(text.value){
     text_error.html("")
-    if(text.value.length > 1000){ 
+    if(text.value.match(/<blockquote>/g)){
+      const parser = new DOMParser()
+      const doc = parser.parseFromString(text.value,'text/html')
+      doc.querySelector('blockquote').remove()
+      const value = doc.querySelector('body').innerHTML.replace(/[\r\n]/g,'')
+      
+      if(!value){
+        text_error.html("留言内容不能为空")
+        validity = false
+      }
+      if(value.length > 1000){ 
+        text_error.html("留言长度过长，支持1000字符以内")
+        validity = false;
+      }
+    }else if(text.value.length > 1000){ 
       text_error.html("留言长度过长，支持1000字符以内")
-      valididy = false;
+      validity = false;
     }
   }else{
     text_error.html("留言内容不能为空")
-    valididy = false;
+    validity = false;
   };
+ 
   // 名字校验
   if(name.value){
     name_error.html("")
     if(name.value.length > 50){ 
       name_error.html("名字长度过长,支持50字符以内")
-      valididy = false;
+      validity = false;
     };
   }else{ 
     name_error.html("名字不能为空")
-    valididy = false;
+    validity = false;
   };
   // 邮箱校验
   if(email.value){
     email_error.html("")
     if(email.value.length > 100){ 
       email_error.html("邮箱长度过长,支持100字符以内")
-      valididy =false;
+      validity =false;
     }else if(!email.value.match(reg_email)){
       email_error.html("邮箱格式不正确")
-      valididy = false;
+      validity = false;
     }
   }else{
     email_error.html("邮箱不能为空")
-    valididy = false;
+    validity = false;
   };
   // 网址校验
   if(url.value){
     url_error.html("")
     if(url.value.length > 200){ 
       url_error.html("网址长度过长,支持200字符以内")
-      valididy = false;
+      validity = false;
     }else if(!url.value.match(reg_url)){
       url_error.html("网址格式不正确")
-      valididy = false;
+      validity = false;
     }
   }
-  if(valididy){
+  if(validity){
     text.value =text_value
     // form.submit()
   }else{

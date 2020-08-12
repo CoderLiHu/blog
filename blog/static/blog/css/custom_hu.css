@@ -1191,6 +1191,11 @@ img {
     background-color: rgba(244, 246, 247, 0.089);
     font-weight: 700;
 }
+.comment-item .text blockquote pre a{
+    font-weight: 700;
+    color: #111;
+    text-decoration: underline;
+}
 .comment-item .text blockquote p{
     font-size: 1.5rem;
     padding-left: 3rem;
