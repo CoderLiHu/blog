@@ -21,7 +21,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '*-pl&kr!+(+#aut$9r2k2$1fc_s240*^pyu*c6t(_qhultrd05'
+SECRET_KEY = os.environ['BLOG_SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True if PRODUCTION == 'False' else False
@@ -121,3 +121,11 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'blog/static' if PRODUCTION == 'False' else 'static')
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_SSL = True        # 使用SSL加密端口
+EMAIL_HOST = os.environ['BLOG_EMAIL_HOST']  # smtp服务地址
+EMAIL_PORT = 465            # SSL加密端口
+EMAIL_HOST_USER = os.environ['BLOG_EMAIL_HOST_USER']  # 帐号
+EMAIL_HOST_PASSWORD = os.environ['BLOG_EMAIL_HOST_PASSWORD']  # 邮箱的独立授权码
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER      # 邮件的发送人
