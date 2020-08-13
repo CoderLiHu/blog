@@ -15,9 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from lihu_blog.settings import BLOG_ADMIN_URL
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path(BLOG_ADMIN_URL, admin.site.urls),
     path('', include('blog.urls')),
     path('', include('comments.urls'))
 ]

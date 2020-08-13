@@ -129,3 +129,6 @@ EMAIL_PORT = 465            # SSL加密端口
 EMAIL_HOST_USER = os.environ['BLOG_EMAIL_HOST_USER']  # 帐号
 EMAIL_HOST_PASSWORD = os.environ['BLOG_EMAIL_HOST_PASSWORD']  # 邮箱的独立授权码
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER      # 邮件的发送人
+
+
+BLOG_ADMIN_URL = os.environ['BLOG_ADMIN_URL']
